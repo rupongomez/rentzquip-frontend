@@ -31,10 +31,17 @@ export default function GoogleLoginComponent() {
           router.push("/");
         },
         onError: (err) => {
+          const apiError = err as Error & {
+            data?: {
+              message?: string;
+            };
+          };
+
           toast.add({
             title: "Google OAuth Failed",
             description:
-              err.message || "Something went wrong. Please try again",
+              apiError.data?.message ||
+              "Something went wrong. Please try again",
             type: "error",
           });
         },

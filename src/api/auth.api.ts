@@ -1,7 +1,7 @@
 import apiClient from "@/lib/apiClient";
 import {
   LoginPayload,
-  RegistrationPayload,
+  UserRegistrationPayload,
   VerifyAccountPayload,
 } from "@/types";
 
@@ -25,7 +25,7 @@ export const resendOTP = (payload: { email: string }) => {
   });
 };
 
-export const userRegistration = (payload: RegistrationPayload) => {
+export const userRegistration = (payload: UserRegistrationPayload) => {
   return apiClient("/auth/register", {
     method: "POST",
     body: payload,
@@ -43,5 +43,8 @@ export const getMe = () => {
 };
 
 export const googleOAuth = (payload: { idToken: string }) => {
-  return apiClient("/auth/google", { method: "POST", body: payload });
+  return apiClient("/auth/login-with-google", {
+    method: "POST",
+    body: payload,
+  });
 };

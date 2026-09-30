@@ -22,6 +22,7 @@ import { toast } from "../ui/toast";
 import GoogleLoginComponent from "../modules/google-login/GoogleLogin";
 import { useRegistration } from "@/hooks";
 import { Spinner } from "../ui/spinner";
+import { Select } from "../ui/select";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -33,7 +34,6 @@ export function RegisterForm() {
   const defaultValues: PatientDefaultValues = {
     name: "Anthony",
     email: "anthony@example.com",
-    contactNumber: "01912345675",
     password: "@User123456",
     confirmPassword: "@User123456",
   };
@@ -49,9 +49,6 @@ export function RegisterForm() {
       const registrationData = {
         name: value.name,
         email: value.email,
-        patient: {
-          contactNumber: value.contactNumber,
-        },
         password: value.password,
       };
       registration(registrationData, {
@@ -73,10 +70,16 @@ export function RegisterForm() {
           router.push(`/register/verify-account?${params.toString()}`);
         },
         onError: (err) => {
+          const apiError = err as Error & {
+            data?: {
+              message?: string;
+            };
+          };
           toast.add({
             title: "Registration Failed",
             description:
-              err.message || "Please check your information and try again.",
+              apiError?.data?.message ||
+              "Please check your information and try again.",
             type: "error",
           });
         },
@@ -153,26 +156,18 @@ export function RegisterForm() {
             }}
           </form.Field>
 
-          <form.Field name="contactNumber">
+          <form.Field name="role">
             {(field) => {
               const isInvalid =
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Phone Number</FieldLabel>
-                  <div className="relative">
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      type="tel"
-                      placeholder="+880 1712 345678"
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      aria-invalid={isInvalid}
-                      autoComplete="off"
-                    />
-                  </div>
+                  <FieldLabel htmlFor={field.name}>
+                    Select your account type
+                  </FieldLabel>
+                  <Select></Select>
+                  {/* <div className="relative"> */}
+                  {/* </div> */}
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
               );

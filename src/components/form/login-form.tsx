@@ -27,8 +27,8 @@ export function LoginForm() {
 
   const form = useForm({
     defaultValues: {
-      email: "super@admin.com",
-      password: "Super@admin123",
+      email: "rupongomez@gmail.com",
+      password: "Password@123",
     },
     validators: {
       onSubmit: loginSchema,
@@ -40,6 +40,7 @@ export function LoginForm() {
       };
       login(loginData, {
         onSuccess: (res) => {
+          console.log(res.data);
           toast.add({
             title: "Login Successful",
             description: "Welcome back! You have successfully logged in.",
@@ -48,10 +49,16 @@ export function LoginForm() {
           router.push("/");
         },
         onError: (err) => {
+          const apiError = err as Error & {
+            data?: {
+              message?: string;
+            };
+          };
           toast.add({
             title: "Login Failed",
             description:
-              err.message || "Please check your credentials and try again.",
+              apiError.data?.message ||
+              "Please check your credentials and try again.",
             type: "error",
           });
         },

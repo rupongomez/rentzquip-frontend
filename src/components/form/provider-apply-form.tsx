@@ -29,10 +29,6 @@
 // import { Input } from "@/components/ui/input";
 // import { Textarea } from "@/components/ui/textarea";
 
-// import { formatFileSize } from "@/utils";
-// import { DoctorApplicationData } from "@/types";
-// import { useApplyAsDoctor } from "@/hooks";
-
 // //* Data signature
 // // {
 // //   "user": {
@@ -53,7 +49,6 @@
 
 // export default function DoctorApplyForm() {
 //   const router = useRouter();
-//   const { mutate: apply, isPending: applyPending } = useApplyAsDoctor();
 
 //   const form = useForm({
 //     defaultValues: {

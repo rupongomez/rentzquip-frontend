@@ -1,9 +1,7 @@
-export interface RegistrationPayload {
+export interface UserRegistrationPayload {
   name: string;
   email: string;
-  patient: {
-    contactNumber?: string;
-  };
+
   password: string;
 }
 
