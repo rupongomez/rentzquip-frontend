@@ -12,14 +12,14 @@ export const userLogin = (payload: LoginPayload) => {
   });
 };
 export const verifyAccount = (payload: VerifyAccountPayload) => {
-  return apiClient("/auth/verify-email", {
+  return apiClient("/auth/verify-otp", {
     method: "POST",
     body: payload,
   });
 };
 
 export const resendOTP = (payload: { email: string }) => {
-  return apiClient("/auth/resend-verify-otp", {
+  return apiClient("/auth/resend-otp", {
     method: "POST",
     body: payload,
   });

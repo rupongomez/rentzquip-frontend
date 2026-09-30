@@ -15,25 +15,32 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
-import { patientRegistrationSchema } from "@/validation";
+import { UserRegistrationSchema } from "@/validation";
 import z from "zod";
 
 import { toast } from "../ui/toast";
 import GoogleLoginComponent from "../modules/google-login/GoogleLogin";
 import { useRegistration } from "@/hooks";
 import { Spinner } from "../ui/spinner";
-import { Select } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export function RegisterForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  type PatientDefaultValues = z.infer<typeof patientRegistrationSchema>;
+  type UserDefaultValues = z.infer<typeof UserRegistrationSchema>;
 
-  const defaultValues: PatientDefaultValues = {
+  const defaultValues: UserDefaultValues = {
     name: "Anthony",
-    email: "anthony@example.com",
+    email: "anthonyrupon0@gmail.com",
+    role: "CUSTOMER",
     password: "@User123456",
     confirmPassword: "@User123456",
   };
@@ -43,13 +50,14 @@ export function RegisterForm() {
   const form = useForm({
     defaultValues,
     validators: {
-      onSubmit: patientRegistrationSchema,
+      onSubmit: UserRegistrationSchema,
     },
     onSubmit: async ({ value }) => {
       const registrationData = {
         name: value.name,
         email: value.email,
         password: value.password,
+        role: value.role,
       };
       registration(registrationData, {
         onSuccess: (res) => {
@@ -165,7 +173,26 @@ export function RegisterForm() {
                   <FieldLabel htmlFor={field.name}>
                     Select your account type
                   </FieldLabel>
-                  <Select></Select>
+                  <Select
+                    value={field.state.value}
+                    onValueChange={(value) => {
+                      if (value !== null) {
+                        field.handleChange(value);
+                      }
+                    }}
+                  >
+                    <SelectTrigger
+                      id={field.name}
+                      onBlur={field.handleBlur}
+                      className="w-full"
+                    >
+                      <SelectValue placeholder="Select a role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="CUSTOMER">customer</SelectItem>
+                      <SelectItem value="PROVIDER">provider</SelectItem>
+                    </SelectContent>
+                  </Select>
                   {/* <div className="relative"> */}
                   {/* </div> */}
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}

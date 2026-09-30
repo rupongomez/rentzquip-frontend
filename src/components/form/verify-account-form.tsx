@@ -17,7 +17,7 @@ import { useResendOTP, useVerifyAccount } from "@/hooks";
 import { toast } from "../ui/toast";
 import { Spinner } from "../ui/spinner";
 
-const RESEND_COOLDOWN = 5;
+const RESEND_COOLDOWN = 60;
 
 export default function VerifyAccountForm() {
   const searchParams = useSearchParams();
@@ -70,23 +70,27 @@ export default function VerifyAccountForm() {
         toast.add({
           title: "Verification Successful",
           description:
-            "Your account has been verified successfully. You can now log in.",
+            res.data.message || "Your account has been verified successfully.",
           type: "success",
         });
 
         router.push("/");
       },
       onError: (err) => {
+        const apiError = err as Error & {
+          data?: {
+            message?: string;
+          };
+        };
         toast.add({
           title: "Verification Failed",
           description:
-            err.message || "Please check your information and try again.",
+            apiError.data?.message ||
+            "Please check your information and try again.",
           type: "error",
         });
       },
     });
-
-    console.log(verifyData);
   };
 
   const handleResendOtp = () => {
@@ -184,7 +188,14 @@ export default function VerifyAccountForm() {
             handleResendOtp();
           }}
         >
-          Resend
+          {resendPending ? (
+            <>
+              <Spinner />
+              Resending
+            </>
+          ) : (
+            "Resend OTP"
+          )}
         </Button>
         <Button disabled={verifyPending} type="submit" form="otp-form">
           {verifyPending ? (
