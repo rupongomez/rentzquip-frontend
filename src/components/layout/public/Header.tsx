@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
 import { useGetMe, useLogout } from "@/hooks";
+import { UserRole } from "@/types";
 import { QueryCache, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import React from "react";
@@ -12,9 +13,18 @@ export default function Header() {
     { name: "About", url: "/about-us" },
   ];
 
+  const dashboardRoutes: Record<UserRole, string> = {
+    ADMIN: "/admin",
+    MODERATOR: "/moderator",
+    PROVIDER: "/provider",
+    CUSTOMER: "/user",
+  };
+
   const { data, isLoading } = useGetMe();
   const { mutate: logout } = useLogout();
   const queryClient = useQueryClient();
+
+  const role: UserRole = !!data?.data && data?.data.role;
 
   const handleLogout = () => {
     logout(undefined, {
@@ -46,6 +56,7 @@ export default function Header() {
               {route.name}
             </Link>
           ))}
+          {role && <Link href={dashboardRoutes[role]}>Dashboard</Link>}
         </nav>
         <div>
           {!isLoading && !data && (

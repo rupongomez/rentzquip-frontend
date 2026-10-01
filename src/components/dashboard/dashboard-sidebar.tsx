@@ -1,7 +1,7 @@
+"use client";
 import { adminRoutes, providerRoutes, userRoutes } from "@/routes";
 import { SidebarItem, SidebarItems, UserRole } from "@/types";
 import { usePathname } from "next/navigation";
-import React from "react";
 import {
   Sidebar,
   SidebarContent,

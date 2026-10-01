@@ -20,6 +20,10 @@ export const userRoutes = [
     url: "#",
     items: [
       {
+        title: "Become a Provider",
+        url: `${prefix}/become-provider`,
+      },
+      {
         title: "Routing",
         url: "#",
       },
