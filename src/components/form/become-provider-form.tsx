@@ -7,16 +7,20 @@ import { FileText, FileUp, X } from "lucide-react";
 import { formateFileSize } from "@/utils/file-size.utils";
 import {
   becomeProviderSchema,
-  getProviderImageFileSchema,
   MAX_FILE_SIZE,
 } from "@/validation/provider-application.validation";
-import { useBecomeProvider } from "@/hooks/provider.hook";
+import {
+  useBecomeProvider,
+  useGetProviderProfile,
+} from "@/hooks/provider.hook";
 import { toast } from "../ui/toast";
 import { ProviderPayload } from "@/types/provider.type";
 import { Spinner } from "../ui/spinner";
 
 export function BecomeProviderForm() {
   const { mutate: apply, isPending } = useBecomeProvider();
+  const { data, isPending: isGetProviderProfilePending } =
+    useGetProviderProfile();
 
   const form = useForm({
     defaultValues: {
@@ -29,16 +33,18 @@ export function BecomeProviderForm() {
       onSubmit: becomeProviderSchema,
     },
     onSubmit: ({ value }) => {
+      console.log(value);
       const applicationData: ProviderPayload = {
         address: value.address,
         description: value.description,
-        imageUrl: value.imageUrl,
+        imageUrl: value.imageUrl!,
         phoneNumber: value.phoneNumber,
       };
 
       apply(applicationData, {
         onSuccess: (res) => {
           if (res.success) {
+            form.reset();
             toast.add({
               title: "Application Submitted",
               description:
@@ -49,10 +55,11 @@ export function BecomeProviderForm() {
           }
         },
         onError: (err) => {
+          const apiError = err as Error & { data?: { message?: string } };
           toast.add({
             title: "Application Failed",
             description:
-              err?.data?.message ||
+              apiError?.data?.message ||
               "There was an error submitting your application.",
             type: "error",
           });
@@ -63,6 +70,26 @@ export function BecomeProviderForm() {
 
   return (
     <div className="flex flex-col gap-5 w-8/12 mx-auto mt-5">
+      <div className="flex flex-col gap-2 items-center text-center">
+        <h1 className="text-2xl font-bold tracking-tight">Become a Provider</h1>
+        <p className="text-balance text-sm text-muted-foreground ">
+          {data?.data?.provider ? (
+            data.data.provider.status === "PENDING" ? (
+              <div>
+                <p className="text-yellow-500">
+                  {" "}
+                  Your application is pending approval. Please wait for further
+                  updates.
+                </p>
+              </div>
+            ) : (
+              "You are already a provider."
+            )
+          ) : (
+            "Fill out the form below to become a provider."
+          )}
+        </p>
+      </div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -195,14 +222,19 @@ export function BecomeProviderForm() {
           </form.Field>
 
           {
-            <Button type="submit">
+            <Button
+              type="submit"
+              disabled={
+                isPending || isGetProviderProfilePending || data?.data?.provider
+              }
+            >
               {isPending ? (
                 <>
                   <Spinner />
-                  "Submitting..."{" "}
+                  Submitting...{" "}
                 </>
               ) : (
-                "Login"
+                "Apply"
               )}
             </Button>
           }

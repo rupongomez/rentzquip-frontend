@@ -31,8 +31,7 @@ export const becomeProviderSchema = z.object({
   address: z.string().min(1, "Address is required"),
   description: z
     .string()
-    .max(MAX_BIO_LENGTH, `Bio cannot exceed ${MAX_BIO_LENGTH} characters`)
-    .optional(),
+    .max(MAX_BIO_LENGTH, `Bio cannot exceed ${MAX_BIO_LENGTH} characters`),
   imageUrl: getProviderImageFileSchema<File | null>(
     `Image must be a valid file type (jpg, jpeg, png) and not exceed ${MAX_FILE_SIZE} MB`,
   ).refine((value) => value instanceof File, {
@@ -42,6 +41,5 @@ export const becomeProviderSchema = z.object({
     .string()
     .refine((val) => val === "" || /^(?:\+?880|0)1[3-9]\d{8}$/.test(val), {
       message: "Please provide valid Bangladeshi number",
-    })
-    .optional(),
+    }),
 });

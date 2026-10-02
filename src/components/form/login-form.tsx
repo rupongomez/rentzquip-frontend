@@ -24,6 +24,23 @@ export function LoginForm() {
   const router = useRouter();
 
   const { mutate: login, isPending: loginPending } = useLogin();
+  const demoAccounts = [
+    {
+      label: "Login as Customer",
+      email: process.env.NEXT_PUBLIC_TEST_USER_EMAIL,
+      password: process.env.NEXT_PUBLIC_TEST_USER_PASSWORD,
+    },
+    {
+      label: "Login as Provider",
+      email: process.env.NEXT_PUBLIC_TEST_PROVIDER_EMAIL,
+      password: process.env.NEXT_PUBLIC_TEST_PROVIDER_PASSWORD,
+    },
+    {
+      label: "Login as Admin",
+      email: process.env.NEXT_PUBLIC_TEST_ADMIN_EMAIL,
+      password: process.env.NEXT_PUBLIC_TEST_ADMIN_PASSWORD,
+    },
+  ];
 
   const form = useForm({
     defaultValues: {
