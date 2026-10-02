@@ -41,7 +41,37 @@ export function LoginForm() {
       password: process.env.NEXT_PUBLIC_TEST_ADMIN_PASSWORD,
     },
   ];
+  const handleLogin = (email: string, password: string) => {
+    login(
+      { email, password },
+      {
+        onSuccess: (res) => {
+          console.log(res.data);
+          toast.add({
+            title: "Login Successful",
+            description: "Welcome back! You have successfully logged in.",
+            type: "success",
+          });
+          router.push("/");
+        },
+        onError: (err) => {
+          const apiError = err as Error & {
+            data?: {
+              message?: string;
+            };
+          };
 
+          toast.add({
+            title: "Login Failed",
+            description:
+              apiError.data?.message ||
+              "Please check your credentials and try again.",
+            type: "error",
+          });
+        },
+      },
+    );
+  };
   const form = useForm({
     defaultValues: {
       email: "rupongomez@gmail.com",
@@ -166,6 +196,21 @@ export function LoginForm() {
               "Login"
             )}
           </Button>
+          {demoAccounts.map((account) => (
+            <Button
+              key={account.label}
+              type="button"
+              variant="outline"
+              disabled={loginPending || !account.email || !account.password}
+              onClick={() => {
+                if (!account.email || !account.password) return;
+
+                handleLogin(account.email, account.password);
+              }}
+            >
+              {account.label}
+            </Button>
+          ))}
         </FieldGroup>
       </form>
       <FieldSeparator>or</FieldSeparator>
