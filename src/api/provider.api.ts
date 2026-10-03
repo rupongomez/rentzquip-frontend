@@ -19,5 +19,15 @@ export const becomeProvider = (payload: ProviderPayload) => {
 };
 
 export const getProviderProfile = () => {
-  return apiClient("/provider/me");
+  return apiClient<ApiResponse<ProviderResponse>>("/provider/me");
+};
+
+export const getAllProviders = () => {
+  return apiClient<ApiResponse<{ providers: ProviderResponse["provider"][] }>>(
+    "/provider/all",
+  );
+};
+
+export const getProviderById = (id: string) => {
+  return apiClient<ApiResponse<ProviderResponse>>(`/provider/${id}`);
 };
