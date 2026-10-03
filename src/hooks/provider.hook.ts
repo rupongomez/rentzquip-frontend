@@ -3,8 +3,15 @@ import {
   getAllProviders,
   getProviderById,
   getProviderProfile,
+  updateProviderStatus,
 } from "@/api/provider.api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { IProviderQuery } from "@/types";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 
 export const useBecomeProvider = () => {
   return useMutation({
@@ -20,10 +27,18 @@ export const useGetProviderProfile = () => {
   });
 };
 
-export const useGetAllProviders = () => {
+export const useGetAllProviders = (params: IProviderQuery) => {
   return useQuery({
-    queryFn: getAllProviders,
-    queryKey: ["allProviders"],
+    queryKey: ["allProviders", params],
+    queryFn: () => getAllProviders(params),
+    retry: false,
+  });
+};
+
+export const useSuspenseGetAllProviders = (params: IProviderQuery) => {
+  return useSuspenseQuery({
+    queryKey: ["allProviders", params],
+    queryFn: () => getAllProviders(params),
     retry: false,
   });
 };
@@ -33,5 +48,17 @@ export const useGetProviderById = (id: string) => {
     queryFn: () => getProviderById(id),
     queryKey: ["provider", id],
     retry: false,
+  });
+};
+
+export const useUpdateProviderStatus = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, status }: { id: string; status: string }) =>
+      updateProviderStatus(id, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["allProviders"] });
+      queryClient.invalidateQueries({ queryKey: ["provider"] });
+    },
   });
 };

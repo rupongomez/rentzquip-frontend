@@ -1,6 +1,10 @@
 import apiClient from "@/lib/apiClient";
 import { ApiResponse } from "@/types";
-import { ProviderPayload, ProviderResponse } from "@/types/provider.type";
+import {
+  IProviderQuery,
+  ProviderPayload,
+  ProviderResponse,
+} from "@/types/provider.type";
 
 export const becomeProvider = (payload: ProviderPayload) => {
   const formData = new FormData();
@@ -22,12 +26,22 @@ export const getProviderProfile = () => {
   return apiClient<ApiResponse<ProviderResponse>>("/provider/me");
 };
 
-export const getAllProviders = () => {
+export const getAllProviders = (params: IProviderQuery) => {
   return apiClient<ApiResponse<{ providers: ProviderResponse["provider"][] }>>(
     "/provider/all",
+    {
+      params: params,
+    },
   );
 };
 
 export const getProviderById = (id: string) => {
   return apiClient<ApiResponse<ProviderResponse>>(`/provider/${id}`);
+};
+
+export const updateProviderStatus = (id: string, status: string) => {
+  return apiClient<ApiResponse<ProviderResponse>>(`/provider/status/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ status }),
+  });
 };

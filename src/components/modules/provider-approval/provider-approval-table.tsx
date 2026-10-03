@@ -16,8 +16,11 @@ interface Props {
   handleReview: Dispatch<SetStateAction<string>>;
 }
 
-export default function ProviderApprovalTable({ handleReview }: Props) {
-  const { data: providers } = useGetAllProviders();
+export default function ProviderApprovalTable({
+  handleReview,
+  ...params
+}: Props) {
+  const { data: providers } = useGetAllProviders(params);
   const providerList = providers?.data.providers || [];
 
   const isEmpty = providerList.length === 0;

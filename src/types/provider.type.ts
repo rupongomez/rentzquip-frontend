@@ -24,3 +24,12 @@ export type ProviderPayload = {
   imageUrl: File;
   phoneNumber: string;
 };
+
+export interface IProviderQuery {
+  limit?: number;
+  page?: number;
+  skip?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  searchTerm?: string;
+}
