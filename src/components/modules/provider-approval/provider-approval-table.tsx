@@ -22,7 +22,7 @@ export default function ProviderApprovalTable({
   ...params
 }: Props) {
   const { data: providers } = useGetAllProviders(params);
-  const providerList = providers?.data.providers || [];
+  const providerList = providers?.data || [];
   // console.log(providers?.data?.meta);
 
   const isEmpty = providerList.length === 0;

@@ -28,12 +28,9 @@ export const getProviderProfile = () => {
 
 // TODO: change type of data and meta to be more specific
 export const getAllProviders = (params: IProviderQuery) => {
-  return apiClient<ApiResponse<{ providers: ProviderResponse["provider"][] }>>(
-    "/provider/all",
-    {
-      params: params,
-    },
-  );
+  return apiClient<ApiResponse<ProviderResponse[]>>("/provider/all", {
+    params: params,
+  });
 };
 
 export const getProviderById = (id: string) => {
