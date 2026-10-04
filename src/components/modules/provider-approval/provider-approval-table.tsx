@@ -85,7 +85,9 @@ export default function ProviderApprovalTable({
           )}
         </TableBody>
       </Table>
-      <TablePagination />
+      {providers && (
+        <TablePagination params={params} metaData={providers.meta} />
+      )}
     </div>
   );
 }
