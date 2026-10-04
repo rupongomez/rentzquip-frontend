@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import TablePagination from "@/components/ui/table-pagination";
 import { useGetAllProviders } from "@/hooks/provider.hook";
 import { SearchX } from "lucide-react";
 import Image from "next/image";
@@ -22,6 +23,7 @@ export default function ProviderApprovalTable({
 }: Props) {
   const { data: providers } = useGetAllProviders(params);
   const providerList = providers?.data.providers || [];
+  // console.log(providers?.data?.meta);
 
   const isEmpty = providerList.length === 0;
   return (
@@ -83,6 +85,7 @@ export default function ProviderApprovalTable({
           )}
         </TableBody>
       </Table>
+      <TablePagination />
     </div>
   );
 }
