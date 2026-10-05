@@ -10,8 +10,8 @@ export const providerRoutes = [
         url: `${prefix}`,
       },
       {
-        title: "Apply to Provider ",
-        url: `${prefix}/approve-provider`,
+        title: "Add Equipment",
+        url: `${prefix}/add-equipment`,
       },
     ],
   },

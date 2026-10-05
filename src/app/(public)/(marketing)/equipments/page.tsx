@@ -1,5 +1,4 @@
 import EquipmentGrid from "@/components/modules/equipments/equipment-grid";
-import React from "react";
 
 export default function page() {
   return (
