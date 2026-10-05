@@ -15,14 +15,10 @@ import React, { Dispatch, SetStateAction } from "react";
 
 interface Props {
   handleReview: Dispatch<SetStateAction<string>>;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-  currentPage: number;
 }
 
 export default function ProviderApprovalTable({
   handleReview,
-  setCurrentPage,
-  currentPage,
   ...params
 }: Props) {
   const { data: providers } = useGetAllProviders(params);
@@ -90,12 +86,7 @@ export default function ProviderApprovalTable({
         </TableBody>
       </Table>
       {providers && (
-        <TablePagination
-          params={params}
-          metaData={providers.meta}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
+        <TablePagination params={params} metaData={providers.meta} />
       )}
     </div>
   );

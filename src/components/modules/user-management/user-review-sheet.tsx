@@ -34,6 +34,9 @@ export default function ProviderApprovalReviewSheet({
     }
   };
 
+  console.log(providerList?.data);
+  // return;
+
   const selectedProvider = providerList?.data?.find(
     (provider) => provider.id === selectedId,
   );
