@@ -15,7 +15,9 @@ export const categoryPayloadValidationZodSchema = z.object({
   name: z
     .string()
     .min(3, { message: "Name must be at least 3 characters long" }),
-  description: z.string().optional(),
+  description: z
+    .string()
+    .min(10, { message: "Description must be at least 10 characters long" }),
   model: z
     .string()
     .min(3, { message: "Model is required" })

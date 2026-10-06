@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { useForm } from "@tanstack/react-form";
 import { Input } from "../ui/input";
@@ -11,7 +10,9 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
-import { useGetAllCategories } from "@/hooks";
+import { categoryPayloadValidationZodSchema } from "@/validation/category.validation";
+import { useGetAllCategories } from "@/hooks/category.hook";
+import { Spinner } from "../ui/spinner";
 
 export default function AddEquipmentForm() {
   const { data, isPending: categoryPending } = useGetAllCategories();
@@ -21,26 +22,39 @@ export default function AddEquipmentForm() {
       description: "",
       model: "",
       brand: "",
-      quantity: "",
-      rentalPrice: "",
-      securityDeposit: "",
+      quantity: 0,
+      rentalPrice: 0,
+      securityDeposit: 0,
       categoryId: "",
     },
-
+    validators: {
+      onSubmit: categoryPayloadValidationZodSchema,
+    },
     onSubmit: ({ value }) => {
       console.log(value);
     },
   });
-  const categories = data?.data?.categories || [];
+  const categories = data?.data.categories || [];
 
   const isCategoryLoading = categoryPending;
 
   if (isCategoryLoading) {
-    return <div>Loading categories...</div>;
+    return (
+      <div className="flex gap-2">
+        <Spinner className="animate-spin" />
+        Loading categories...
+      </div>
+    );
   }
   return (
     <div className="w-full justify-center mx-auto max-w-md p-4 bg-white rounded-lg shadow-md">
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
+        }}
+      >
         <FieldGroup>
           <form.Field name="name">
             {(field) => {
@@ -131,7 +145,7 @@ export default function AddEquipmentForm() {
                   <Input
                     id={field.name}
                     name={field.name}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(e) => field.handleChange(Number(e.target.value))}
                     value={field.state.value}
                     onBlur={field.handleBlur}
                   />
@@ -151,7 +165,7 @@ export default function AddEquipmentForm() {
                   <Input
                     id={field.name}
                     name={field.name}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(e) => field.handleChange(Number(e.target.value))}
                     value={field.state.value}
                     onBlur={field.handleBlur}
                   />
@@ -171,7 +185,7 @@ export default function AddEquipmentForm() {
                   <Input
                     id={field.name}
                     name={field.name}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(e) => field.handleChange(Number(e.target.value))}
                     value={field.state.value}
                     onBlur={field.handleBlur}
                   />
@@ -204,7 +218,11 @@ export default function AddEquipmentForm() {
                       <SelectValue placeholder="Select a Category" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem>Categories</SelectItem>
+                      {categories.map((category) => (
+                        <SelectItem key={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}

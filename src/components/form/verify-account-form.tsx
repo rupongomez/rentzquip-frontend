@@ -136,7 +136,7 @@ export default function VerifyAccountForm() {
         <CardTitle>Verify Your Account</CardTitle>
         <CardDescription>
           Please provide the verification code sent to{" "}
-          <span className="font-medium font-bold">{email}</span>
+          <span className=" font-bold">{email}</span>
         </CardDescription>
       </CardHeader>
       <CardContent>

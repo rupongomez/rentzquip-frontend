@@ -33,7 +33,6 @@ export function BecomeProviderForm() {
       onSubmit: becomeProviderSchema,
     },
     onSubmit: ({ value }) => {
-      console.log(value);
       const applicationData: ProviderPayload = {
         address: value.address,
         description: value.description,
@@ -73,8 +72,8 @@ export function BecomeProviderForm() {
       <div className="flex flex-col gap-2 items-center text-center">
         <h1 className="text-2xl font-bold tracking-tight">Become a Provider</h1>
         <p className="text-balance text-sm text-muted-foreground ">
-          {data?.data?.provider ? (
-            data.data.provider.status === "PENDING" ? (
+          {data?.data ? (
+            data.data.status === "PENDING" ? (
               <div>
                 <p className="text-yellow-500">
                   {" "}
@@ -224,9 +223,7 @@ export function BecomeProviderForm() {
           {
             <Button
               type="submit"
-              disabled={
-                isPending || isGetProviderProfilePending || data?.data?.provider
-              }
+              disabled={isPending || isGetProviderProfilePending}
             >
               {isPending ? (
                 <>
