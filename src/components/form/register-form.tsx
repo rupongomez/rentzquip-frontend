@@ -286,7 +286,7 @@ export function RegisterForm() {
             }}
           </form.Field>
 
-          <Button type="submit">
+          <Button disabled={isPending} type="submit">
             {isPending ? (
               <>
                 <Spinner />
