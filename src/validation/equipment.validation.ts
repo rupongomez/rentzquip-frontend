@@ -20,11 +20,11 @@ export const createEquipmentPayloadValidationZodSchema = z.object({
   model: z
     .string()
     .min(3, { message: "Model is required" })
-    .max(50, { message: "Model must be less than 50 characters" }),
+    .max(100, { message: "Model must be less than 100 characters" }),
   brand: z
     .string()
     .min(3, { message: "Brand is required" })
-    .max(50, { message: "Brand must be less than 50 characters" }),
+    .max(100, { message: "Brand must be less than 100 characters" }),
   quantity: z.number().min(1, { message: "Quantity must be at least 1" }),
   rentalPrice: z
     .number()

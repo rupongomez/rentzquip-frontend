@@ -14,14 +14,17 @@ import { useGetAllCategories } from "@/hooks/category.hook";
 import { Spinner } from "../ui/spinner";
 import { FileText, FileUp, X } from "lucide-react";
 import { formateFileSize } from "@/utils/file-size.utils";
-import { MAX_FILE_SIZE } from "@/validation";
 import {
   createEquipmentPayloadValidationZodSchema,
   MAX_IMAGE_FILES,
 } from "@/validation/equipment.validation";
+import { useCreateEquipment } from "@/hooks";
+import { toast } from "../ui/toast";
 
 export default function AddEquipmentForm() {
   const { data, isPending: categoryPending } = useGetAllCategories();
+  const { mutate: createEquipmentMutate, isPending: createEquipmentPending } =
+    useCreateEquipment();
   const form = useForm({
     defaultValues: {
       name: "",
@@ -38,7 +41,32 @@ export default function AddEquipmentForm() {
       onSubmit: createEquipmentPayloadValidationZodSchema,
     },
     onSubmit: ({ value }) => {
-      console.log(value);
+      console.log(JSON.stringify(value));
+
+      createEquipmentMutate(value, {
+        onSuccess: (res) => {
+          if (res.success) {
+            toast.add({
+              title: "Success",
+              description: "Equipment created successfully",
+              type: "success",
+            });
+          }
+        },
+        onError: (err) => {
+          const apiError = err as Error & {
+            data?: {
+              message?: string;
+            };
+          };
+
+          toast.add({
+            title: "Error",
+            description: apiError.data?.message || "Failed to create equipment",
+            type: "error",
+          });
+        },
+      });
     },
   });
   const categories = data?.data.categories || [];
@@ -82,6 +110,7 @@ export default function AddEquipmentForm() {
               );
             }}
           </form.Field>
+
           <form.Field name="categoryId">
             {(field) => {
               const isInvalid =
@@ -106,7 +135,7 @@ export default function AddEquipmentForm() {
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((category) => (
-                        <SelectItem key={category.id}>
+                        <SelectItem key={category.id} value={category.id}>
                           {category.name}
                         </SelectItem>
                       ))}
@@ -319,8 +348,19 @@ export default function AddEquipmentForm() {
             }}
           </form.Field>
 
-          <Button type="submit" variant="default">
-            Create
+          <Button
+            type="submit"
+            variant="default"
+            disabled={createEquipmentPending}
+          >
+            {createEquipmentPending ? (
+              <div className="flex gap-2 items-center">
+                <Spinner className="animate-spin" />
+                Creating...
+              </div>
+            ) : (
+              "Create Equipment"
+            )}
           </Button>
         </FieldGroup>
       </form>
