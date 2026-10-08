@@ -23,3 +23,7 @@ export const createEquipment = (payload: CreateEquipmentPayload) => {
     body: formData,
   });
 };
+
+export const getAllEquipments = () => {
+  return apiClient("/equipment/all");
+};

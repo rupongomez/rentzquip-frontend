@@ -9,3 +9,12 @@ export type CreateEquipmentPayload = {
   categoryId: string;
   imageUrl: File[];
 };
+
+export type EquipmentQueries = {
+  limit?: number;
+  page?: number;
+  skip?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  searchTerm?: string;
+};
