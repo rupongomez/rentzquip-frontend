@@ -1,7 +1,6 @@
 import { getAllEquipments, getEquipmentById } from "@/api";
-import { useGetAllEquipments, useGetSingleEquipmentById } from "@/hooks";
+import BookingQuantityCount from "@/components/modules/equipments/booking-quantity-count";
 import Image from "next/image";
-import React from "react";
 
 export async function generateStaticParams() {
   const limit = 1;
@@ -20,10 +19,9 @@ export default async function page({ params }: { params: { id: string } }) {
   const { id } = await params;
   const data = await getEquipmentById(id);
   const equipments = data?.data || [];
-  console.log(data);
   return (
-    <div className="w-8/12 mx-auto">
-      <div className="flex flex-col md:flex-row gap-4">
+    <div className="w-8/12 mx-auto my-10">
+      <div className="flex flex-col md:flex-row gap-10">
         <div>
           {equipments.imageUrl ? (
             equipments.imageUrl
@@ -35,7 +33,7 @@ export default async function page({ params }: { params: { id: string } }) {
                   height={500}
                   alt={equipments?.name}
                   unoptimized
-                  className="object-contain h-full w-full"
+                  className="object-contain h-full w-full rounded-2xl"
                 />
               ))
               .at(0)
@@ -50,8 +48,15 @@ export default async function page({ params }: { params: { id: string } }) {
             />
           )}
         </div>
-        <div>
+        <div className="flex flex-col gap-2 my-2">
           <h1 className="text-2xl font-bold my-5">{equipments.name}</h1>
+          <p className="">
+            {" "}
+            <span className="font-semibold">Model: </span>
+            <span className=" text-blue-400 font-semibold">
+              {equipments.model}
+            </span>{" "}
+          </p>
           <p className="">
             {" "}
             <span className="font-semibold">Description: </span>
@@ -59,19 +64,30 @@ export default async function page({ params }: { params: { id: string } }) {
               {equipments.description}
             </span>{" "}
           </p>
-          <p className="">
-            {" "}
-            <span className="font-semibold">Model: </span>
-            <span className=" text-gray-600">{equipments.model}</span>{" "}
-          </p>
           <p>
             <span className="font-semibold">Brand: </span>
             <span className=" text-gray-600">{equipments.brand}</span>{" "}
           </p>
           <p>
-            <span className="font-semibold">Quantity: </span>
+            <span className="font-semibold">Quantity Available: </span>
             <span className=" text-gray-600">{equipments.quantity}</span>{" "}
           </p>
+          <p>
+            <span className="font-semibold">Rental Price: </span>
+            <span className=" text-gray-600">
+              ${equipments.rentalPrice}
+              <span className="text-xs text-muted-foreground">/day</span>
+            </span>{" "}
+          </p>
+          <p>
+            <span className="font-semibold">Security Deposit: </span>
+            <span className=" text-gray-600">
+              ${equipments.securityDeposit}
+            </span>{" "}
+          </p>
+          <div>
+            <BookingQuantityCount max={equipments.quantity} />
+          </div>
         </div>
       </div>
     </div>
