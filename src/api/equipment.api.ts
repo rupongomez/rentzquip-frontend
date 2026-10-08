@@ -1,5 +1,10 @@
 import apiClient from "@/lib/apiClient";
-import { CreateEquipmentPayload } from "@/types";
+import {
+  ApiResponse,
+  CreateEquipmentPayload,
+  EquipmentQueries,
+  EquipmentResponse,
+} from "@/types";
 
 export const createEquipment = (payload: CreateEquipmentPayload) => {
   const formData = new FormData();
@@ -24,6 +29,12 @@ export const createEquipment = (payload: CreateEquipmentPayload) => {
   });
 };
 
-export const getAllEquipments = () => {
-  return apiClient("/equipment/all");
+export const getAllEquipments = (params: EquipmentQueries) => {
+  return apiClient<ApiResponse<EquipmentResponse[]>>("/equipment/all", {
+    params,
+  });
+};
+
+export const getEquipmentById = (id: string) => {
+  return apiClient<ApiResponse<EquipmentResponse>>(`/equipment/single/${id}`);
 };
