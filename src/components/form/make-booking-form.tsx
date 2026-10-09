@@ -8,6 +8,7 @@ import type { EquipmentResponse } from "@/types";
 import { useCreateRentalBooking } from "@/hooks";
 import { toast } from "../ui/toast";
 import { Spinner } from "../ui/spinner";
+import { useRouter } from "next/navigation";
 
 export default function MakeBookingForm({
   equipments,
@@ -19,6 +20,7 @@ export default function MakeBookingForm({
   onClose: () => void;
 }) {
   const { mutate: createRental, isPending } = useCreateRentalBooking();
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       startDate: "",
@@ -37,6 +39,7 @@ export default function MakeBookingForm({
               type: "success",
             });
             onClose();
+            router.push("/user/manage-rental");
           }
         },
         onError: (err) => {

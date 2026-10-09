@@ -3,3 +3,4 @@ export * from "./provider.hook";
 export * from "./debounce.hook";
 export * from "./equipment.hook";
 export * from "./rental.hook";
+export * from "./payment.hook";
