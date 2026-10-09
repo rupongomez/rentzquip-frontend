@@ -36,6 +36,8 @@ export default function Header() {
           type: "success",
         });
         queryClient.removeQueries({ queryKey: ["user"] });
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
       },
       onError: () => {
         toast.add({

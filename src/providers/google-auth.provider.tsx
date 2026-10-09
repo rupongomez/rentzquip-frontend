@@ -1,4 +1,3 @@
-"use client";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ReactNode } from "react";
 
