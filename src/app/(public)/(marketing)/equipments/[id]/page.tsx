@@ -1,5 +1,5 @@
 import { getAllEquipments, getEquipmentById } from "@/api";
-import BookingQuantityCount from "@/components/modules/equipments/booking-quantity-count";
+import BookNow from "@/components/modules/equipments/book-now";
 import Image from "next/image";
 
 export async function generateStaticParams() {
@@ -86,7 +86,7 @@ export default async function page({ params }: { params: { id: string } }) {
             </span>{" "}
           </p>
           <div>
-            <BookingQuantityCount max={equipments.quantity} />
+            <BookNow equipments={equipments} max={equipments.quantity} />
           </div>
         </div>
       </div>
