@@ -4,3 +4,4 @@ export * from "./api.types";
 export * from "./sidebar.type";
 export * from "./provider.type";
 export * from "./Equipment.types";
+export * from "./rental.types";

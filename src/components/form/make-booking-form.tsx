@@ -5,14 +5,20 @@ import { useForm } from "@tanstack/react-form";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import type { EquipmentResponse } from "@/types";
+import { useCreateRentalBooking } from "@/hooks";
+import { toast } from "../ui/toast";
+import { Spinner } from "../ui/spinner";
 
 export default function MakeBookingForm({
   equipments,
   quantity,
+  onClose,
 }: {
   equipments: EquipmentResponse;
   quantity: number;
+  onClose: () => void;
 }) {
+  const { mutate: createRental, isPending } = useCreateRentalBooking();
   const form = useForm({
     defaultValues: {
       startDate: "",
@@ -22,7 +28,35 @@ export default function MakeBookingForm({
     },
 
     onSubmit: ({ value }) => {
-      console.log(value);
+      createRental(value, {
+        onSuccess: (res) => {
+          if (res.success) {
+            toast.add({
+              title: "Booking Created",
+              description: "Your booking has been created successfully",
+              type: "success",
+            });
+            onClose();
+          }
+        },
+        onError: (err) => {
+          const apiError = err as Error & {
+            response?: {
+              data?: {
+                message?: string;
+              };
+            };
+          };
+          onClose();
+          toast.add({
+            title: "Booking Error",
+            description:
+              apiError.response?.data?.message ||
+              "An error occurred while creating the booking",
+            type: "error",
+          });
+        },
+      });
     },
   });
   return (
@@ -105,7 +139,16 @@ export default function MakeBookingForm({
             );
           }}
         </form.Field>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? (
+            <div className="flex items-center gap-2">
+              <Spinner className="animate-spin" />
+              Booking...{" "}
+            </div>
+          ) : (
+            "Book Now"
+          )}
+        </Button>
       </FieldGroup>
     </form>
   );

@@ -24,6 +24,10 @@ export const userRoutes = [
         url: `${prefix}/become-provider`,
       },
       {
+        title: "Rental Management",
+        url: `${prefix}/manage-rental`,
+      },
+      {
         title: "Routing",
         url: "#",
       },

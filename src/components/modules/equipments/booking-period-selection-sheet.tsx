@@ -37,9 +37,17 @@ export default function BookingPeriodSelectionSheet({
             Set booking period for{" "}
             <span className="font-bold">{equipments.model}</span>
           </h1>
-          <p>Selected Equipment ID: {selectedId}</p>
+          <p>
+            Price: ${equipments.rentalPrice}/
+            <span className="font-bold">day</span>
+          </p>
+          <p>Security Deposit ${equipments.securityDeposit}</p>
+          <MakeBookingForm
+            equipments={equipments}
+            quantity={quantity}
+            onClose={onClose}
+          />
         </div>
-        <MakeBookingForm equipments={equipments} quantity={quantity} />
       </SheetContent>
     </Sheet>
   );
