@@ -54,6 +54,7 @@ export default function BookNow({
       </div>
       <BookingPeriodSelectionSheet
         selectedId={selectedId}
+        equipments={equipments}
         onClose={() => setSelectedId("")}
       />
     </div>
