@@ -56,6 +56,7 @@ export default function BookNow({
         selectedId={selectedId}
         equipments={equipments}
         onClose={() => setSelectedId("")}
+        quantity={quantity}
       />
     </div>
   );

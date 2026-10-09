@@ -13,12 +13,14 @@ type BookingPeriodSelectionSheetProps = {
   selectedId: string;
   onClose: () => void;
   equipments: EquipmentResponse;
+  quantity: number;
 };
 
 export default function BookingPeriodSelectionSheet({
   selectedId,
   onClose,
   equipments,
+  quantity,
 }: BookingPeriodSelectionSheetProps) {
   return (
     <Sheet open={!!selectedId} onOpenChange={onClose}>
@@ -37,7 +39,7 @@ export default function BookingPeriodSelectionSheet({
           </h1>
           <p>Selected Equipment ID: {selectedId}</p>
         </div>
-        <MakeBookingForm />
+        <MakeBookingForm equipments={equipments} quantity={quantity} />
       </SheetContent>
     </Sheet>
   );
