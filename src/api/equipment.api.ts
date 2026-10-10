@@ -38,3 +38,16 @@ export const getAllEquipments = (params: EquipmentQueries) => {
 export const getEquipmentById = (id: string) => {
   return apiClient<ApiResponse<EquipmentResponse>>(`/equipment/single/${id}`);
 };
+
+export const updateEquipmentStatusByProvider = (
+  equipmentId: string,
+  status: string,
+) => {
+  return apiClient<ApiResponse<EquipmentResponse>>(
+    `/equipment/change-status/${equipmentId}`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ status }),
+    },
+  );
+};

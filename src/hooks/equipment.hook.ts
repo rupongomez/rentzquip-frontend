@@ -1,4 +1,9 @@
-import { createEquipment, getAllEquipments, getEquipmentById } from "@/api";
+import {
+  createEquipment,
+  getAllEquipments,
+  getEquipmentById,
+  updateEquipmentStatusByProvider,
+} from "@/api";
 import { EquipmentQueries } from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -21,5 +26,17 @@ export const useGetSingleEquipmentById = (id: string) => {
     queryKey: ["equipment-single", id],
     queryFn: () => getEquipmentById(id),
     retry: false,
+  });
+};
+
+export const useUpdateEquipmentStatusByProvider = () => {
+  return useMutation({
+    mutationFn: ({
+      equipmentId,
+      status,
+    }: {
+      equipmentId: string;
+      status: string;
+    }) => updateEquipmentStatusByProvider(equipmentId, status),
   });
 };

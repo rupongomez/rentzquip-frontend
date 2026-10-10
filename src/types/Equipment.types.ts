@@ -35,18 +35,18 @@ export type EquipmentImageUrls = {
 export type EquipmentResponse = {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   model: string;
   brand: string;
   quantity: number;
   rentalPrice: number;
   securityDeposit: number;
-  imageUrl: EquipmentImageUrls[] | null;
+  imageUrl?: EquipmentImageUrls[] | null;
   categoryId: string;
   providerId: string;
   status: IEquipmentStatus;
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
-  provider: ProviderResponse;
+  provider?: ProviderResponse;
 };

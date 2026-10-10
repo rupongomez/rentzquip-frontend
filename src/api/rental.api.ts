@@ -11,3 +11,13 @@ export const createRentalBooking = (payload: RentalCreatePayload) => {
 export const getUserRentals = () => {
   return apiClient<ApiResponse<RentalResponse[]>>("/rental/rental-history/all");
 };
+
+export const changeRentalStatusByProvider = (
+  rentalId: string,
+  rentalStatus: string,
+) => {
+  return apiClient(`/rental/update-status/${rentalId}`, {
+    method: "PATCH",
+    body: rentalStatus,
+  });
+};

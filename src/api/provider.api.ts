@@ -1,5 +1,5 @@
 import apiClient from "@/lib/apiClient";
-import { ApiResponse } from "@/types";
+import { ApiResponse, EquipmentResponse } from "@/types";
 import {
   IProviderQuery,
   ProviderPayload,
@@ -42,4 +42,10 @@ export const updateProviderStatus = (id: string, status: string) => {
     method: "PATCH",
     body: JSON.stringify({ status }),
   });
+};
+
+export const getProvidersEquipmentByUserId = () => {
+  return apiClient<ApiResponse<EquipmentResponse[]>>(
+    "/equipment/providers-equipment",
+  );
 };

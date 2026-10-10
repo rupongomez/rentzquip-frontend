@@ -3,6 +3,7 @@ import {
   getAllProviders,
   getProviderById,
   getProviderProfile,
+  getProvidersEquipmentByUserId,
   updateProviderStatus,
 } from "@/api/provider.api";
 import { IProviderQuery } from "@/types";
@@ -60,5 +61,13 @@ export const useUpdateProviderStatus = () => {
       queryClient.invalidateQueries({ queryKey: ["allProviders"] });
       queryClient.invalidateQueries({ queryKey: ["provider"] });
     },
+  });
+};
+
+export const useGetProvidersEquipmentByUserId = () => {
+  return useQuery({
+    queryKey: ["providersEquipment"],
+    queryFn: getProvidersEquipmentByUserId,
+    retry: false,
   });
 };
