@@ -25,7 +25,6 @@ export default function TablePagination({
   const ITEMS_PER_PAGE = metaData.limit || 10;
   // const [currentPage, setPage] = useState(params.page || 1);
 
-  console.log(params, metaData);
   const totalPages = Math.ceil(metaData.total / ITEMS_PER_PAGE);
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) pageNumbers.push(i);

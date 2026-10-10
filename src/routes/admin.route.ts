@@ -2,7 +2,7 @@ const prefix = "/admin";
 
 export const adminRoutes = [
   {
-    title: "management ",
+    title: "Dashboard ",
     url: "#",
     items: [
       {
@@ -13,23 +13,19 @@ export const adminRoutes = [
         title: "profile",
         url: `${prefix}/profile`,
       },
+    ],
+  },
+  {
+    title: "Management",
+    url: "#",
+    items: [
       {
         title: "Manage Providers",
         url: `${prefix}/manage-provider`,
       },
-    ],
-  },
-  {
-    title: "App Settings",
-    url: "#",
-    items: [
       {
-        title: "Routing",
-        url: "#",
-      },
-      {
-        title: "Data Fetching",
-        url: "#",
+        title: "Manage users",
+        url: `${prefix}/manage-users`,
       },
     ],
   },

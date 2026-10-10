@@ -15,7 +15,7 @@ export const useCreateEquipment = () => {
 
 export const useGetAllEquipments = (params: EquipmentQueries) => {
   return useQuery({
-    queryKey: ["equipments-all"],
+    queryKey: ["equipments-all", params],
     queryFn: () => getAllEquipments(params),
     retry: false,
   });

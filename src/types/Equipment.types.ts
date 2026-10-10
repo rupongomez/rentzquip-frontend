@@ -19,6 +19,7 @@ export type EquipmentQueries = {
   sortBy?: string;
   sortOrder?: "asc" | "desc";
   searchTerm?: string;
+  categoryId?: string;
 };
 
 export type IEquipmentStatus =
