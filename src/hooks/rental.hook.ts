@@ -1,6 +1,7 @@
 import {
   changeRentalStatusByProvider,
   createRentalBooking,
+  getAllRentalForAdmin,
   getAllRentalForProvider,
   getUserRentals,
 } from "@/api";
@@ -36,6 +37,13 @@ export const useGetAllRentalForProvider = () => {
   return useQuery({
     queryKey: ["all-rentals-provider"],
     queryFn: () => getAllRentalForProvider(),
+    retry: false,
+  });
+};
+export const useGetAllRentalForAdmin = () => {
+  return useQuery({
+    queryKey: ["all-rentals-admin"],
+    queryFn: () => getAllRentalForAdmin(),
     retry: false,
   });
 };

@@ -29,3 +29,6 @@ export const getAllRentalForProvider = () => {
     "/rental/provider-rentals/all",
   );
 };
+export const getAllRentalForAdmin = () => {
+  return apiClient<ApiResponse<RentalResponse[]>>("/rental/admin-rentals/all");
+};

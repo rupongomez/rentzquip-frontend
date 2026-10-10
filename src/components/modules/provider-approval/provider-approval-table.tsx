@@ -27,7 +27,6 @@ export default function ProviderApprovalTable({
 }: Props) {
   const { data: providers } = useGetAllProviders(params);
   const providerList = providers?.data || [];
-  // console.log(providers?.data?.meta);
 
   const isEmpty = providerList.length === 0;
   return (
@@ -61,7 +60,7 @@ export default function ProviderApprovalTable({
               <TableRow key={provider.id}>
                 <TableCell>
                   <Image
-                    src={provider.imageUrl}
+                    src={provider.imageUrl || "/profile-placeholder.jpg"}
                     alt={provider.name}
                     width={20}
                     height={20}
