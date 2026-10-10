@@ -1,13 +1,14 @@
 "use client";
 
+import { PackageSearch } from "lucide-react";
+import { useMemo, useState } from "react";
+
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetProvidersEquipmentByUserId } from "@/hooks/provider.hook";
-import { IEquipmentStatus, EquipmentResponse } from "@/types";
-import { PackageSearch } from "lucide-react";
-import { useMemo, useState } from "react";
-import ManageEquipmentTable from "./manage-equipment-table";
+import type { EquipmentResponse, IEquipmentStatus } from "@/types";
 import ManageEquipmentDetails from "./manage-equipment-details";
+import ManageEquipmentTable from "./manage-equipment-table";
 
 type EquipmentFilter = "ALL" | IEquipmentStatus;
 
@@ -56,33 +57,46 @@ export default function ManageEquipmentTabs() {
   }
 
   return (
-    <section className="space-y-5">
-      <div className="flex flex-col gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 lg:flex-row lg:items-center lg:justify-between">
+    <section className="min-w-0 space-y-5">
+      <div className="flex min-w-0 flex-col gap-4 rounded-2xl bg-white p-3 shadow-sm ring-1 ring-slate-200 sm:p-5 lg:flex-row lg:items-center lg:justify-between">
         <Tabs
           value={filter}
           onValueChange={(value) => setFilter(value as EquipmentFilter)}
+          className="min-w-0"
         >
-          <TabsList className="flex-wrap">
-            <TabsTrigger value="ALL">All</TabsTrigger>
-            <TabsTrigger value="AVAILABLE">Available</TabsTrigger>
-            <TabsTrigger value="PENDING">Pending</TabsTrigger>
-            <TabsTrigger value="RENTED">Rented</TabsTrigger>
-            <TabsTrigger value="MAINTENANCE">Maintenance</TabsTrigger>
+          <TabsList className="flex w-full flex-nowrap justify-start gap-1 overflow-x-auto p-1 sm:flex-wrap sm:overflow-visible">
+            <TabsTrigger className="shrink-0" value="ALL">
+              All
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="AVAILABLE">
+              Available
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="PENDING">
+              Pending
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="RENTED">
+              Rented
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="MAINTENANCE">
+              Maintenance
+            </TabsTrigger>
           </TabsList>
         </Tabs>
         <Input
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Search by name, brand, or model"
-          className="w-full lg:max-w-xs"
+          className="h-10 w-full lg:max-w-xs"
         />
       </div>
 
       {equipment.length ? (
-        <ManageEquipmentTable
-          equipment={equipment}
-          onViewDetails={setSelectedEquipment}
-        />
+        <div className="max-sm:[&_td:nth-child(2)]:hidden max-sm:[&_td:nth-child(3)]:hidden max-sm:[&_th:nth-child(2)]:hidden max-sm:[&_th:nth-child(3)]:hidden">
+          <ManageEquipmentTable
+            equipment={equipment}
+            onViewDetails={setSelectedEquipment}
+          />
+        </div>
       ) : (
         <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
           <PackageSearch className="mx-auto size-10 text-slate-400" />

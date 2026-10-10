@@ -5,6 +5,8 @@ import { EquipmentResponse } from "@/types";
 import { Minus, Plus } from "lucide-react";
 import React, { useState } from "react";
 import BookingPeriodSelectionSheet from "./booking-period-selection-sheet";
+import { useGetMe } from "@/hooks";
+import { toast } from "@/components/ui/toast";
 
 export default function BookNow({
   max,
@@ -15,6 +17,8 @@ export default function BookNow({
 }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedId, setSelectedId] = useState("");
+  const { data: getMe } = useGetMe();
+  console.log(getMe);
   return (
     <div className="flex  gap-2 mt-5 items-center">
       <div className="flex items-center gap-2">
@@ -47,7 +51,13 @@ export default function BookNow({
         <Button
           variant="default"
           className="p-4"
-          onClick={() => setSelectedId(equipments.id)}
+          onClick={() => {
+            if (!getMe) {
+              window.location.href = "/login";
+              return;
+            }
+            setSelectedId(equipments.id);
+          }}
         >
           Book Now
         </Button>

@@ -21,10 +21,10 @@ export default async function page({ params }: { params: { id: string } }) {
   const data = await getEquipmentById(id);
   const equipments = data?.data || [];
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-      <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
-        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-3 shadow-sm sm:p-5">
-          <div className="relative flex h-80 items-center justify-center overflow-hidden rounded-2xl bg-white sm:h-112 lg:h-136">
+    <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+      <div className="grid min-w-0 gap-6 md:gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+        <div className="min-w-0 rounded-3xl border border-slate-200 bg-slate-50 p-2.5 shadow-sm sm:p-4 lg:p-5">
+          <div className="relative flex h-72 items-center justify-center overflow-hidden rounded-2xl bg-white sm:h-96 md:h-112 lg:h-136">
             {equipments.imageUrl?.[0]?.url ? (
               <Image
                 src={equipments.imageUrl[0].url}
@@ -32,7 +32,7 @@ export default async function page({ params }: { params: { id: string } }) {
                 height={700}
                 alt={equipments.name}
                 unoptimized
-                className="size-full object-contain p-6 sm:p-10"
+                className="size-full object-contain p-4 sm:p-8 lg:p-10"
               />
             ) : (
               <Image
@@ -41,7 +41,7 @@ export default async function page({ params }: { params: { id: string } }) {
                 height={700}
                 alt={equipments.name || "Equipment placeholder"}
                 unoptimized
-                className="size-full object-contain p-10"
+                className="size-full object-contain p-6 sm:p-8 lg:p-10"
               />
             )}
             <span className="absolute left-4 top-4 rounded-full bg-emerald-100 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-emerald-700">
@@ -50,11 +50,11 @@ export default async function page({ params }: { params: { id: string } }) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center mt-2">
+        <div className="flex min-w-0 flex-col justify-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">
             Equipment details
           </p>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          <h1 className="mt-3 wrap-break-word text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl lg:text-4xl">
             {equipments.name}
           </h1>
           <p className="mt-4 text-base leading-7 text-slate-600">
@@ -62,8 +62,8 @@ export default async function page({ params }: { params: { id: string } }) {
               "Reliable equipment ready for your next rental."}
           </p>
 
-          <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl border border-slate-200 bg-white p-4">
+          <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
                 Brand
               </p>
@@ -71,7 +71,7 @@ export default async function page({ params }: { params: { id: string } }) {
                 {equipments.brand}
               </p>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-4">
+            <div className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
                 Model
               </p>
@@ -79,7 +79,7 @@ export default async function page({ params }: { params: { id: string } }) {
                 {equipments.model}
               </p>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-4">
+            <div className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
                 Available
               </p>
@@ -89,7 +89,7 @@ export default async function page({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          <div className="mt-7 flex flex-wrap items-end justify-between gap-4 rounded-2xl bg-slate-950 p-5 text-white sm:p-6">
+          <div className="mt-7 flex flex-col gap-5 rounded-2xl bg-slate-950 p-5 text-white sm:flex-row sm:items-end sm:justify-between sm:p-6">
             <div>
               <p className="text-sm text-slate-400">Rental price</p>
               <p className="mt-1 text-3xl font-bold text-emerald-300">
@@ -107,7 +107,7 @@ export default async function page({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4 sm:p-5">
+          <div className="mt-6 min-w-0 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4 sm:p-5">
             <p className="text-sm font-medium text-emerald-900">
               Ready to rent this equipment?
             </p>

@@ -1,13 +1,14 @@
 "use client";
 
+import { ClipboardList } from "lucide-react";
+import { useMemo, useState } from "react";
+
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetAllRentalForProvider } from "@/hooks/rental.hook";
-import { RentalResponse, RentalStatus } from "@/types";
-import { ClipboardList } from "lucide-react";
-import { useMemo, useState } from "react";
-import ProviderRentalTable from "./provider-rental-table";
+import type { RentalResponse, RentalStatus } from "@/types";
 import ProviderRentalDetails from "./provider-rental-details";
+import ProviderRentalTable from "./provider-rental-table";
 
 type RentalFilter = "ALL" | RentalStatus;
 
@@ -59,27 +60,42 @@ export default function ProviderRentalManagementTabs() {
   }
 
   return (
-    <section className="space-y-5">
-      <div className="flex flex-col gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 lg:flex-row lg:items-center lg:justify-between">
+    <section className="min-w-0 space-y-5">
+      <div className="flex min-w-0 flex-col gap-4 rounded-2xl bg-white p-3 shadow-sm ring-1 ring-slate-200 sm:p-5 lg:flex-row lg:items-center lg:justify-between">
         <Tabs
           value={filter}
           onValueChange={(value) => setFilter(value as RentalFilter)}
+          className="min-w-0"
         >
-          <TabsList className="flex-wrap">
-            <TabsTrigger value="ALL">All</TabsTrigger>
-            <TabsTrigger value="PENDING">Pending</TabsTrigger>
-            <TabsTrigger value="APPROVED">Approved</TabsTrigger>
-            <TabsTrigger value="PAID">Paid</TabsTrigger>
-            <TabsTrigger value="ONGOING">Ongoing</TabsTrigger>
-            <TabsTrigger value="COMPLETED">Completed</TabsTrigger>
-            <TabsTrigger value="REJECTED">Rejected</TabsTrigger>
+          <TabsList className="flex w-full flex-nowrap justify-start gap-1 overflow-x-auto p-1 sm:flex-wrap sm:overflow-visible">
+            <TabsTrigger className="shrink-0" value="ALL">
+              All
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="PENDING">
+              Pending
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="APPROVED">
+              Approved
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="PAID">
+              Paid
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="ONGOING">
+              Ongoing
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="COMPLETED">
+              Completed
+            </TabsTrigger>
+            <TabsTrigger className="shrink-0" value="REJECTED">
+              Rejected
+            </TabsTrigger>
           </TabsList>
         </Tabs>
         <Input
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Search rental, customer, or equipment ID"
-          className="w-full lg:max-w-xs"
+          className="h-10 w-full lg:max-w-xs"
         />
       </div>
 

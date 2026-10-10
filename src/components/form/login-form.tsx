@@ -46,7 +46,6 @@ export function LoginForm() {
       { email, password },
       {
         onSuccess: (res) => {
-          console.log(res.data);
           toast.add({
             title: "Login Successful",
             description: "Welcome back! You have successfully logged in.",
@@ -74,8 +73,8 @@ export function LoginForm() {
   };
   const form = useForm({
     defaultValues: {
-      email: "rupongomez@gmail.com",
-      password: "Password@123",
+      email: "",
+      password: "",
     },
     validators: {
       onSubmit: loginSchema,
@@ -87,7 +86,6 @@ export function LoginForm() {
       };
       login(loginData, {
         onSuccess: (res) => {
-          console.log(res.data);
           toast.add({
             title: "Login Successful",
             description: "Welcome back! You have successfully logged in.",
