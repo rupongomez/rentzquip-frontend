@@ -4,6 +4,7 @@ import { toast } from "@/components/ui/toast";
 import { useGetMe, useLogout } from "@/hooks";
 import { UserRole } from "@/types";
 import { QueryCache, useQueryClient } from "@tanstack/react-query";
+import { Settings } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -52,7 +53,9 @@ export default function Header() {
   return (
     <header className="w-full h-16 border border-b ">
       <div className="flex justify-between items-center h-full max-w-7xl mx-auto">
-        <div>CareNest</div>
+        <Link href="/" className="text-xl font-bold flex gap-1 items-center">
+          <Settings className="animate-spin" /> RentzQuip
+        </Link>
         <nav className="flex gap-5">
           {routes.map((route) => (
             <Link key={route.name} href={route.url}>

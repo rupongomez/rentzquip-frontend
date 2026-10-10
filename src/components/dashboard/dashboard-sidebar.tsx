@@ -14,6 +14,7 @@ import {
   SidebarMenuItem,
 } from "../ui/sidebar";
 import Link from "next/link";
+import { Settings } from "lucide-react";
 const sidebarRoutes: Partial<Record<UserRole, SidebarItems>> = {
   ADMIN: adminRoutes,
   PROVIDER: providerRoutes,
@@ -25,8 +26,8 @@ export default function DashboardSidebar({ role }: { role: UserRole }) {
   return (
     <Sidebar>
       <SidebarHeader>
-        <Link href="/">
-          <h2>RentzQuip</h2>
+        <Link href="/" className="text-xl font-bold flex gap-1 items-center">
+          <Settings className="animate-spin" /> RentzQuip
         </Link>
       </SidebarHeader>
       <SidebarContent>

@@ -3,7 +3,8 @@ import React from "react";
 export default function Footer() {
   return (
     <div className="w-full h-16 border border-t flex justify-center items-center">
-      Copyright: CareNest health care
+      Copyright: <span className="font-bold mx-1"> RentzQuip </span> - All
+      rights reserved
     </div>
   );
 }

@@ -10,8 +10,16 @@ export const providerRoutes = [
         url: `${prefix}`,
       },
       {
+        title: "Profile",
+        url: `${prefix}/profile`,
+      },
+      {
         title: "Add Equipment",
         url: `${prefix}/add-equipment`,
+      },
+      {
+        title: "Manage Equipment",
+        url: `${prefix}/manage-equipment`,
       },
     ],
   },

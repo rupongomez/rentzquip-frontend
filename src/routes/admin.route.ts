@@ -10,6 +10,10 @@ export const adminRoutes = [
         url: `${prefix}`,
       },
       {
+        title: "profile",
+        url: `${prefix}/profile`,
+      },
+      {
         title: "Manage Providers",
         url: `${prefix}/manage-provider`,
       },
