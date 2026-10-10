@@ -65,6 +65,7 @@ export default function EquipmentGrid() {
   };
   const { data, isPending } = useGetAllEquipments(queryParams);
   const equipments = data?.data || [];
+  console.log(equipments);
   const hasSearchQuery = searchInput.trim().length > 0;
 
   return (

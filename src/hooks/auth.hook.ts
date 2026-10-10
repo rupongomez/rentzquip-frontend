@@ -32,9 +32,12 @@ export function useRegistration() {
 }
 export function useLogout() {
   const queryClient = useQueryClient();
-  queryClient.removeQueries({ queryKey: ["user"] });
+
   return useMutation({
     mutationFn: userLogout,
+    onSuccess() {
+      queryClient.removeQueries({ queryKey: ["user"] });
+    },
   });
 }
 

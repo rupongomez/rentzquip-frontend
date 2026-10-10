@@ -1,9 +1,4 @@
-import {
-  ArrowRight,
-  CheckCircle2,
-  Package,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowRight, CheckCircle2, Package, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -77,7 +72,7 @@ export default function HeroSection() {
 
           <div className="relative overflow-hidden rounded-[2rem] border-8 border-white bg-emerald-100 shadow-2xl shadow-emerald-900/10">
             <Image
-              src="/equipment-placeholder.png"
+              src="/rentzquip.png"
               alt="Equipment available for rent"
               width={700}
               height={800}
@@ -86,7 +81,9 @@ export default function HeroSection() {
               className="h-[28rem] w-full object-cover object-center"
             />
             <div className="absolute inset-x-5 bottom-5 rounded-2xl bg-slate-950/80 p-5 text-white backdrop-blur-sm">
-              <p className="text-sm text-emerald-200">Your plans, your choice</p>
+              <p className="text-sm text-emerald-200">
+                Your plans, your choice
+              </p>
               <p className="mt-1 text-xl font-semibold">
                 Find the equipment that gets the job done.
               </p>

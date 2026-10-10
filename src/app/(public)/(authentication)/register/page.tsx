@@ -23,7 +23,7 @@ export default function RegisterPage() {
       </div>
       <div className="relative hidden bg-muted lg:block">
         <img
-          src="/male-doctor.png"
+          src="./rentzquip.png"
           alt="Doctor"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
