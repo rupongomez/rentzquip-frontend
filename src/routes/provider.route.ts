@@ -17,10 +17,6 @@ export const providerRoutes = [
         title: "Add Equipment",
         url: `${prefix}/add-equipment`,
       },
-      {
-        title: "Manage Equipment",
-        url: `${prefix}/manage-equipment`,
-      },
     ],
   },
   {
@@ -28,12 +24,12 @@ export const providerRoutes = [
     url: "#",
     items: [
       {
-        title: "Routing",
-        url: "#",
+        title: "Manage Equipment",
+        url: `${prefix}/manage-equipment`,
       },
       {
-        title: "Data Fetching",
-        url: "#",
+        title: "Manage Rentals",
+        url: `${prefix}/manage-rental`,
       },
     ],
   },

@@ -1,6 +1,7 @@
 import {
   changeRentalStatusByProvider,
   createRentalBooking,
+  getAllRentalForProvider,
   getUserRentals,
 } from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -28,5 +29,13 @@ export const useChangeRentalStatusByProvider = () => {
       rentalId: string;
       rentalStatus: string;
     }) => changeRentalStatusByProvider(rentalId, rentalStatus),
+  });
+};
+
+export const useGetAllRentalForProvider = () => {
+  return useQuery({
+    queryKey: ["all-rentals-provider"],
+    queryFn: () => getAllRentalForProvider(),
+    retry: false,
   });
 };

@@ -4,7 +4,7 @@ import {
   getEquipmentById,
   updateEquipmentStatusByProvider,
 } from "@/api";
-import { EquipmentQueries } from "@/types";
+import { EquipmentQueries, IEquipmentStatus } from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useCreateEquipment = () => {
@@ -36,7 +36,7 @@ export const useUpdateEquipmentStatusByProvider = () => {
       status,
     }: {
       equipmentId: string;
-      status: string;
+      status: IEquipmentStatus;
     }) => updateEquipmentStatusByProvider(equipmentId, status),
   });
 };

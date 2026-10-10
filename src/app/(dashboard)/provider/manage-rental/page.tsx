@@ -1,3 +1,4 @@
+import { ProviderRentalManagementTabs } from "@/components/modules/provider-rental-management";
 import ManageRentalTable from "@/components/modules/user-manage-rental/user-manage-rental-table";
 import React from "react";
 
@@ -11,7 +12,7 @@ export default function page() {
         Manage your rental bookings and equipment here. You can Pay for your
         bookings, once your booking is confirmed.
       </p>
-      <ManageRentalTable />
+      <ProviderRentalManagementTabs />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import {
   CreateEquipmentPayload,
   EquipmentQueries,
   EquipmentResponse,
+  IEquipmentStatus,
 } from "@/types";
 
 export const createEquipment = (payload: CreateEquipmentPayload) => {
@@ -41,13 +42,13 @@ export const getEquipmentById = (id: string) => {
 
 export const updateEquipmentStatusByProvider = (
   equipmentId: string,
-  status: string,
+  status: IEquipmentStatus,
 ) => {
   return apiClient<ApiResponse<EquipmentResponse>>(
     `/equipment/change-status/${equipmentId}`,
     {
       method: "PATCH",
-      body: JSON.stringify({ status }),
+      body: { newStatus: status },
     },
   );
 };

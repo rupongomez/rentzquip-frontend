@@ -2,32 +2,37 @@
 
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useGetProvidersEquipmentByUserId } from "@/hooks/provider.hook";
-import { IEquipmentStatus, EquipmentResponse } from "@/types";
-import { PackageSearch } from "lucide-react";
+import { useGetAllRentalForProvider } from "@/hooks/rental.hook";
+import { RentalResponse, RentalStatus } from "@/types";
+import { ClipboardList } from "lucide-react";
 import { useMemo, useState } from "react";
-import ManageEquipmentTable from "./manage-equipment-table";
-import ManageEquipmentDetails from "./manage-equipment-details";
+import ProviderRentalTable from "./provider-rental-table";
+import ProviderRentalDetails from "./provider-rental-details";
+import { getMe } from "@/api";
 
-type EquipmentFilter = "ALL" | IEquipmentStatus;
+type RentalFilter = "ALL" | RentalStatus;
 
-export default function ManageEquipmentTabs() {
-  const { data, isPending, isError } = useGetProvidersEquipmentByUserId();
-  const [filter, setFilter] = useState<EquipmentFilter>("ALL");
+export default function ProviderRentalManagementTabs() {
+  const { data, isPending, isError } = useGetAllRentalForProvider();
+  const user = getMe();
+
+  const [filter, setFilter] = useState<RentalFilter>("ALL");
   const [search, setSearch] = useState("");
-  const [selectedEquipment, setSelectedEquipment] =
-    useState<EquipmentResponse | null>(null);
-  const equipment = useMemo(() => {
-    const list = (data?.data ?? []) as EquipmentResponse[];
+  const [selectedRental, setSelectedRental] = useState<RentalResponse | null>(
+    null,
+  );
+
+  const rentals = useMemo(() => {
+    const list = (data?.data ?? []) as RentalResponse[];
     const normalizedSearch = search.trim().toLowerCase();
 
-    return list.filter((item) => {
-      const matchesStatus = filter === "ALL" || item.status === filter;
+    return list.filter((rental) => {
+      const matchesStatus = filter === "ALL" || rental.rentalStatus === filter;
       const matchesSearch =
         !normalizedSearch ||
-        [item.name, item.brand, item.model].some((value) =>
-          value.toLowerCase().includes(normalizedSearch),
-        );
+        rental.id.toLowerCase().includes(normalizedSearch) ||
+        rental.equipmentId.toLowerCase().includes(normalizedSearch) ||
+        rental.customerId.toLowerCase().includes(normalizedSearch);
 
       return matchesStatus && matchesSearch;
     });
@@ -46,7 +51,7 @@ export default function ManageEquipmentTabs() {
     return (
       <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
         <p className="font-semibold text-red-900">
-          We couldn&apos;t load your equipment.
+          We couldn&apos;t load your rentals.
         </p>
         <p className="mt-1 text-sm text-red-700">
           Please refresh the page and try again.
@@ -60,34 +65,36 @@ export default function ManageEquipmentTabs() {
       <div className="flex flex-col gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 lg:flex-row lg:items-center lg:justify-between">
         <Tabs
           value={filter}
-          onValueChange={(value) => setFilter(value as EquipmentFilter)}
+          onValueChange={(value) => setFilter(value as RentalFilter)}
         >
           <TabsList className="flex-wrap">
             <TabsTrigger value="ALL">All</TabsTrigger>
-            <TabsTrigger value="AVAILABLE">Available</TabsTrigger>
             <TabsTrigger value="PENDING">Pending</TabsTrigger>
-            <TabsTrigger value="RENTED">Rented</TabsTrigger>
-            <TabsTrigger value="MAINTENANCE">Maintenance</TabsTrigger>
+            <TabsTrigger value="APPROVED">Approved</TabsTrigger>
+            <TabsTrigger value="PAID">Paid</TabsTrigger>
+            <TabsTrigger value="ONGOING">Ongoing</TabsTrigger>
+            <TabsTrigger value="COMPLETED">Completed</TabsTrigger>
+            <TabsTrigger value="REJECTED">Rejected</TabsTrigger>
           </TabsList>
         </Tabs>
         <Input
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          placeholder="Search by name, brand, or model"
+          placeholder="Search rental, customer, or equipment ID"
           className="w-full lg:max-w-xs"
         />
       </div>
 
-      {equipment.length ? (
-        <ManageEquipmentTable
-          equipment={equipment}
-          onViewDetails={setSelectedEquipment}
+      {rentals.length ? (
+        <ProviderRentalTable
+          rentals={rentals}
+          onViewDetails={setSelectedRental}
         />
       ) : (
         <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
-          <PackageSearch className="mx-auto size-10 text-slate-400" />
+          <ClipboardList className="mx-auto size-10 text-slate-400" />
           <h2 className="mt-4 font-semibold text-slate-900">
-            No equipment found
+            No rentals found
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Try another search or status filter.
@@ -95,9 +102,9 @@ export default function ManageEquipmentTabs() {
         </div>
       )}
 
-      <ManageEquipmentDetails
-        equipment={selectedEquipment}
-        onClose={() => setSelectedEquipment(null)}
+      <ProviderRentalDetails
+        rental={selectedRental}
+        onClose={() => setSelectedRental(null)}
       />
     </section>
   );

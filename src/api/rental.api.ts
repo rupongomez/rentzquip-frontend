@@ -21,3 +21,9 @@ export const changeRentalStatusByProvider = (
     body: rentalStatus,
   });
 };
+
+export const getAllRentalForProvider = () => {
+  return apiClient<ApiResponse<RentalResponse[]>>(
+    "/rental/provider-rentals/all",
+  );
+};
