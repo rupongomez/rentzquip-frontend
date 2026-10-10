@@ -8,13 +8,11 @@ import { ClipboardList } from "lucide-react";
 import { useMemo, useState } from "react";
 import ProviderRentalTable from "./provider-rental-table";
 import ProviderRentalDetails from "./provider-rental-details";
-import { getMe } from "@/api";
 
 type RentalFilter = "ALL" | RentalStatus;
 
 export default function ProviderRentalManagementTabs() {
   const { data, isPending, isError } = useGetAllRentalForProvider();
-  const user = getMe();
 
   const [filter, setFilter] = useState<RentalFilter>("ALL");
   const [search, setSearch] = useState("");

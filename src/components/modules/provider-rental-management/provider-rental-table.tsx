@@ -52,10 +52,7 @@ export default function ProviderRentalTable({
   const { mutate: changeRentalStatus, isPending: isChangingStatus } =
     useChangeRentalStatusByProvider();
 
-  const handleStatusChange = (
-    rentalId: string,
-    rentalStatus: RentalStatus,
-  ) => {
+  const handleStatusChange = (rentalId: string, rentalStatus: RentalStatus) => {
     changeRentalStatus(
       { rentalId, rentalStatus },
       {
@@ -64,7 +61,7 @@ export default function ProviderRentalTable({
             toast.add({
               title: "Update failed",
               description:
-                response.message || "Unable to update the rental status.",
+                response.data.message || "Unable to update the rental status.",
               type: "error",
             });
             return;
@@ -126,16 +123,13 @@ export default function ProviderRentalTable({
                 </div>
               </TableCell>
               <TableCell>{rental.quantity}</TableCell>
-              <TableCell>${rental.rentalAmount}              </TableCell>
+              <TableCell>${rental.rentalAmount} </TableCell>
               <TableCell>
                 <Select
                   value={rental.rentalStatus}
                   onValueChange={(value) => {
                     if (value && value !== rental.rentalStatus) {
-                      handleStatusChange(
-                        rental.id,
-                        value as RentalStatus,
-                      );
+                      handleStatusChange(rental.id, value as RentalStatus);
                     }
                   }}
                   disabled={

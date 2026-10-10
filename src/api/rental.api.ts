@@ -18,7 +18,9 @@ export const changeRentalStatusByProvider = (
 ) => {
   return apiClient(`/rental/update-status/${rentalId}`, {
     method: "PATCH",
-    body: rentalStatus,
+    body: {
+      rentalStatus,
+    },
   });
 };
 
