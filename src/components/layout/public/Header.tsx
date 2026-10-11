@@ -12,6 +12,7 @@ export default function Header() {
   const routes = [
     { name: "Home", url: "/" },
     { name: "About", url: "/about-us" },
+    { name: "Contact", url: "/contact-us" },
     { name: "Equipments", url: "/equipments" },
   ];
 

@@ -89,8 +89,8 @@ export default function AdminDashboard() {
                 See the whole rental marketplace at a glance.
               </h1>
               <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
-                Monitor rental activity, revenue, customers, and providers
-                from one central dashboard.
+                Monitor rental activity, revenue, customers, and providers from
+                one central dashboard.
               </p>
             </div>
             <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200">
@@ -102,17 +102,14 @@ export default function AdminDashboard() {
 
         {isPending ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              "revenue",
-              "active-rentals",
-              "pending-rentals",
-              "customers",
-            ].map((skeleton) => (
-              <div
-                key={skeleton}
-                className="h-32 animate-pulse rounded-2xl bg-muted"
-              />
-            ))}
+            {["revenue", "active-rentals", "pending-rentals", "customers"].map(
+              (skeleton) => (
+                <div
+                  key={skeleton}
+                  className="h-32 animate-pulse rounded-2xl bg-muted"
+                />
+              ),
+            )}
           </div>
         ) : isError ? (
           <section className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
@@ -218,20 +215,25 @@ export default function AdminDashboard() {
                     <p className="mt-1 text-lg font-bold">
                       $
                       {rentals.length
-                        ? Math.round(totalRevenue / rentals.length).toLocaleString()
+                        ? Math.round(
+                            totalRevenue / rentals.length,
+                          ).toLocaleString()
                         : "0"}
                     </p>
                   </div>
                   <div className="rounded-xl bg-white/10 p-4">
                     <p className="text-xs text-violet-100">Total quantity</p>
                     <p className="mt-1 text-lg font-bold">
-                      {rentals.reduce((total, rental) => total + rental.quantity, 0)}
+                      {rentals.reduce(
+                        (total, rental) => total + rental.quantity,
+                        0,
+                      )}
                     </p>
                   </div>
                 </div>
                 <p className="mt-5 text-sm leading-6 text-violet-100">
-                  Security deposits currently associated with marketplace
-                  rental records.
+                  Security deposits currently associated with marketplace rental
+                  records.
                 </p>
               </div>
             </section>

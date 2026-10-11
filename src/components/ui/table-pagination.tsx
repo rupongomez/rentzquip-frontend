@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -41,6 +42,11 @@ export default function TablePagination({
             className={`${currentPage === 1 ? "pointer-events-none opacity-50 disabled:" : ""}`}
           />
         </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis
+            className={`${currentPage === 1 ? "hidden" : ""}`}
+          />
+        </PaginationItem>
         {pageNumbers.map((page) => (
           <PaginationItem key={page}>
             <PaginationLink
@@ -55,7 +61,11 @@ export default function TablePagination({
             </PaginationLink>
           </PaginationItem>
         ))}
-
+        <PaginationItem>
+          <PaginationEllipsis
+            className={`${currentPage === totalPages ? "hidden" : ""}`}
+          />
+        </PaginationItem>
         <PaginationItem>
           <PaginationNext
             href="#"

@@ -132,10 +132,7 @@ export default function ManageEquipmentTable({
                     value={item.status}
                     onValueChange={(value) => {
                       if (value && value !== item.status) {
-                        handleStatusChange(
-                          item.id,
-                          value as IEquipmentStatus,
-                        );
+                        handleStatusChange(item.id, value as IEquipmentStatus);
                       }
                     }}
                     disabled={isChangingStatus}

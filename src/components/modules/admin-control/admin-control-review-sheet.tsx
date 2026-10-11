@@ -92,9 +92,7 @@ export default function AdminControlReviewSheet({
             <h2 className="mt-3 text-lg font-semibold text-slate-900">
               {selectedUser.name}
             </h2>
-            <p className="text-sm text-muted-foreground">
-              {selectedUser.role}
-            </p>
+            <p className="text-sm text-muted-foreground">{selectedUser.role}</p>
           </div>
 
           <div className="space-y-3 rounded-xl border border-slate-200 p-4">

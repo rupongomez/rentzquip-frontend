@@ -85,9 +85,7 @@ export default function AdminControlTable({
               <TableCell>
                 <span
                   className={
-                    user.emailVerified
-                      ? "text-emerald-700"
-                      : "text-amber-700"
+                    user.emailVerified ? "text-emerald-700" : "text-amber-700"
                   }
                 >
                   {user.emailVerified ? "Verified" : "Unverified"}

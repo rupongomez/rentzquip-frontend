@@ -78,14 +78,18 @@ export default function TrustFeatures() {
             <PackageCheck className="size-6 text-emerald-400" />
             <div>
               <p className="text-xl font-bold text-white">One marketplace</p>
-              <p className="text-sm text-slate-400">For every kind of equipment</p>
+              <p className="text-sm text-slate-400">
+                For every kind of equipment
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-4 border-b border-white/10 px-6 py-5 sm:border-b-0 sm:border-r">
             <CalendarClock className="size-6 text-cyan-400" />
             <div>
               <p className="text-xl font-bold text-white">Your schedule</p>
-              <p className="text-sm text-slate-400">Your dates, your rental plan</p>
+              <p className="text-sm text-slate-400">
+                Your dates, your rental plan
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-4 px-6 py-5">
