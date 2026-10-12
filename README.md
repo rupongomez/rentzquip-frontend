@@ -125,17 +125,17 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Available scripts
 
-| Command | What it does |
-| --- | --- |
-| `bun dev` | Starts the development server. |
-| `bun run build` | Creates the production build. |
-| `bun start` | Runs the production build locally. |
-| `bun run lint` | Checks the project with Biome. |
-| `bun run format` | Formats project files with Biome. |
-| `npm run dev` | Starts the development server with npm. |
-| `npm run build` | Creates the production build with npm. |
-| `npm start` | Runs the production build with npm. |
-| `npm run lint` | Checks the project with Biome through npm. |
+| Command          | What it does                                  |
+| ---------------- | --------------------------------------------- |
+| `bun dev`        | Starts the development server.                |
+| `bun run build`  | Creates the production build.                 |
+| `bun start`      | Runs the production build locally.            |
+| `bun run lint`   | Checks the project with Biome.                |
+| `bun run format` | Formats project files with Biome.             |
+| `npm run dev`    | Starts the development server with npm.       |
+| `npm run build`  | Creates the production build with npm.        |
+| `npm start`      | Runs the production build with npm.           |
+| `npm run lint`   | Checks the project with Biome through npm.    |
 | `npm run format` | Formats project files with Biome through npm. |
 
 Before opening a pull request, run:
@@ -249,4 +249,4 @@ Keep changes focused and easy to review:
 
 ## Support
 
-For questions about the project or a rental, email [support@rentzquip.com](mailto:support@rentzquip.com).
+For questions about the project or a rental, email [rupongomez@gmail.com](mailto:rupongomez@gmail.com).
